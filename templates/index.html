@@ -1,0 +1,21 @@
+{% extends "template.html" %}
+
+{% block title %}
+    RainyDay
+{% endblock %}
+
+{% block body %}
+
+	<!--Search Bar-->
+	<div class="text-center">
+	<h1>RainyDay</h1>
+	<br>
+	<form action="{{ url_for('search') }}" method="post">
+		<div class="form-group">
+			<input type="text" class="form-control" name="searchinput"
+			placeholder="Zipcode or City">
+		</div>
+		<button type="submit" class="btn btn-primary btn-block">Search</button>
+	</form>
+	</div>
+{% endblock %}

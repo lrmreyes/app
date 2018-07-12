@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <!--Bootstrap, CSS, Font Awesome, Favicon-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    </head>
+
+    <body>
+
+        <!--Navigation Bar-->
+        <nav class="navbar navbar-dark fixed-top bg-dark">
+            <div class="col-md-7">
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <span class="fa fa-umbrella" aria-hidden="true"></span>
+                    <b> RainyDay</b>
+                </a>
+            </div>
+
+            <!--Only shows search bar and logout if logged in-->
+            {% if session["logged_in"] %}
+            <div class="col-md-4">
+                <form action="{{ url_for('search') }}" method="post" class="form-inline pull-right">
+                <div class="input-group">
+                    <input name="searchinput" class="form-control" type="text"
+                    placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                        <span class="fa fa-search" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+            <div class="col-md">
+                <form  action="{{ url_for('logout') }}"
+                method="post" class="pull-right">
+                    <button type="submit" class="btn btn-outline-light">
+                        Logout
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </nav>
+
+        <!--Shows error and success messages-->
+        <div class="container-fluid">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

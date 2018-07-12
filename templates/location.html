@@ -1,0 +1,94 @@
+{% extends "template.html" %}
+
+{% block title %}
+    RainyDay
+{% endblock %}
+
+{% block body %}
+
+    <!--Location Information-->
+    <h1>{{ loc.city }}</h1>
+    <table class="table">
+        <tbody>
+            <tr class="row">
+                <td class="col">Zipcode:</td>
+				<td class="col">{{ loc.zipcode }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Latitude:</td>
+				<td class="col">{{ loc.latitude }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Longitude:</td>
+				<td class="col">{{ loc.longitude }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Population:</td>
+				<td class="col">{{ loc.population }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Number of Check-ins:</td>
+				<td class="col">{{ checkins }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!--Weather Information-->
+    <h2>Current Weather</h2>
+    <table class="table">
+        <tbody>
+            <tr class="row">
+                <td class="col">Time of Report:</td>
+				<td class="col">{{ time }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Weather Summary:</td>
+				<td class="col">{{ summary }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Temperature:</td>
+				<td class="col">{{ temperature }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Dew Point:</td>
+				<td class="col">{{ dew_point }}</td>
+            </tr>
+            <tr class="row">
+                <td class="col">Humidity:</td>
+				<td class="col">{{ humidity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!--Checking-in and leaving comments:-->
+    <div class="card bg-light mb-3">
+        <div class="card-body">
+        <h3 class="card-title">Check-in to this location!</h3>
+        <form action="{{ url_for('checkin', loc_id=loc_id) }}" method="post">
+            <div class="form-group">
+                <label for="comment">Leave a comment (optional):</label>
+                <textarea class="form-control" rows="5" placeholder="Comment"
+                name="comment"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Check-in</button>
+        </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <!--Displays comments-->
+    {% for username, comments in commentlist %}
+        <div class="card bg-light mb-3">
+            <h5 class="card-header">{{ username }}</h5>
+            <div class="card-body">
+                <p>{{ comments }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

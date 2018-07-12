@@ -1,0 +1,17 @@
+body {
+  padding-top: 4.5rem;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.text-center {
+  max-width: 500px;
+  margin: auto;
+  padding: 50px 0;
+}
+
+table {
+    padding:20px;
+}
